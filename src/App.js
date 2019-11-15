@@ -2,6 +2,9 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import "./App.css";
 
+// Main Components
+import Header from "./components/header/header.component";
+
 // pages
 import Homepage from "./pages/home/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
@@ -9,6 +12,7 @@ import ShopPage from "./pages/shop/shop.component";
 function App() {
 	return (
 		<div>
+			<Header />
 			<Switch>
 				<Route exact path="/" component={Homepage} />
 				<Route exact path="/shop" component={ShopPage} />
