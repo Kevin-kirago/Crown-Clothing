@@ -32,12 +32,11 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 	// getting  a snapshot of data from the auth utility
 	const snapShot = await userRef.get();
 
-	console.log(snapShot);
-
 	if (!snapShot.exists) {
 		// data used to create the actual document
 		const { displayName, email } = userAuth;
 
+		// new timestamp date
 		const createdAt = new Date();
 
 		try {
