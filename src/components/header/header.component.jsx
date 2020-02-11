@@ -6,7 +6,10 @@ import { connect } from "react-redux";
 
 import { auth } from "../../firebase/firebase.utils";
 
-const Header = ({ currentUser }) => {
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+
+const Header = ({ currentUser, hidden }) => {
 	return (
 		<div className="header">
 			<Link className="logo-container" to="/">
@@ -15,6 +18,9 @@ const Header = ({ currentUser }) => {
 			<div className="options">
 				<Link className="option" to="/shop">
 					SHOP
+				</Link>
+				<Link className="option" to="/shop">
+					CONATCT
 				</Link>
 				{currentUser ? (
 					<div className="option" onClick={() => auth.signOut()}>
@@ -25,19 +31,19 @@ const Header = ({ currentUser }) => {
 						SIGN IN
 					</Link>
 				)}
-
-				<Link className="option" to="/shop">
-					CONATCT
-				</Link>
+				<CartIcon />
 			</div>
+			{hidden ? null : <CartDropdown />}
 		</div>
 	);
 };
 
-const mapstateProps = state => {
+const mapstateToProps = ({ user: { currentUser }, cart: { hidden } }) => {
 	return {
-		currentUser: state.user.currentUser
+		currentUser,
+		hidden
 	};
 };
 
-export default connect(mapstateProps)(Header);
+// connects a component to properties defined in the root-reducer
+export default connect(mapstateToProps)(Header);

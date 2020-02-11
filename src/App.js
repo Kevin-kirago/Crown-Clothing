@@ -36,7 +36,6 @@ class App extends React.Component {
 					});
 				});
 			}
-
 			setCurrentUser(userAuth);
 		});
 	}
@@ -60,12 +59,14 @@ class App extends React.Component {
 	}
 }
 
+// used for extracting data from the store in redux
 const mapStateToProps = ({ user }) => {
 	return {
 		currentUser: user.currentUser
 	};
 };
 
+// mapDispatch to props lets us update user reducer while invoking its function
 const mapDispatchToProps = dispatch => {
 	return {
 		setCurrentUser: user => dispatch(setCurrentUser(user))
