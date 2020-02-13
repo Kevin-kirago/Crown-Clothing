@@ -5,6 +5,7 @@ import addItem from "../../redux/cart/cart.actions";
 import CustomButton from "../custom-button/custom-button.component";
 
 const CollectionItem = ({ addItem, item }) => {
+	// destructure items of our item
 	const { imageUrl, name, price } = item;
 
 	return (
@@ -21,6 +22,7 @@ const CollectionItem = ({ addItem, item }) => {
 	);
 };
 
+// dispatch our state with new item
 const mapDispatchToProps = dispatch => {
 	return {
 		addItem: item => dispatch(addItem(item))
