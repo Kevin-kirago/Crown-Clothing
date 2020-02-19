@@ -25,6 +25,8 @@ const CartDropdown = ({ cartItems, history, dispatch }) => {
 			<CustomButton
 				onClick={() => {
 					history.push("/checkout");
+
+					// dispach is always passed as the second argument if not specified
 					dispatch(toggleCartHidden());
 				}}>
 				GO TO CHECKOUT

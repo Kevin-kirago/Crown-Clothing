@@ -3,7 +3,7 @@ import "./checkout.styles.scss";
 
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { selectCartItems, selectCartItemsCount, selectCartTotal } from "../../redux/cart/cart.selectors";
+import { selectCartItems, selectCartTotal } from "../../redux/cart/cart.selectors";
 
 import CheckOutItem from "../../components/checkout-item/checkout-item.component";
 
@@ -40,7 +40,6 @@ const CheckOutPage = ({ cartItems, total }) => {
 // pulling  data of from the redux state
 const mapStateToProps = createStructuredSelector({
 	cartItems: selectCartItems,
-	itemCount: selectCartItemsCount,
 	total: selectCartTotal
 });
 
