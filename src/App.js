@@ -26,16 +26,18 @@ class App extends React.Component {
 		// get update on auth event change(login or signout)
 		// listen to auth state change
 
-		this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+			// if userAuth exists
 			if (userAuth) {
 				const userRef = await createUserProfileDocument(userAuth);
 
-				userRef.onSnapshot(snapShot => {
+				// listens to changes that happen on the documentSnapshot
+				userRef.onSnapshot((snapShot) => {
 					// set state is asynchronous so we callback any event after set state
 					setCurrentUser({
 						id: snapShot.id,
 						// .data retrieves data from the document as an object
-						...snapShot.data()
+						...snapShot.data(),
 					});
 				});
 			}
@@ -65,13 +67,13 @@ class App extends React.Component {
 
 // used for extracting data from the store in redux
 const mapStateToProps = createStructuredSelector({
-	currentUser: selectCurrentUser
+	currentUser: selectCurrentUser,
 });
 
 // mapDispatch to props lets us update user reducer while invoking its function
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
 	return {
-		setCurrentUser: user => dispatch(setCurrentUser(user))
+		setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 	};
 };
 

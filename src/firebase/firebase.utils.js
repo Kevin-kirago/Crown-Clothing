@@ -11,7 +11,7 @@ const config = {
 	storageBucket: "crown-clothing-9f7bf.appspot.com",
 	messagingSenderId: "943653595450",
 	appId: "1:943653595450:web:997236a5a6e91bda158803",
-	measurementId: "G-8Y6TNWB8YT"
+	measurementId: "G-8Y6TNWB8YT",
 };
 firebase.initializeApp(config);
 
@@ -27,11 +27,13 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 	 - Firestore will always return us these objects, even if nothing exists at from that query.  
 	*/
 
+	// pulling the documentReference object based on userId
 	const userRef = firestore.doc(`users/${userAuth.uid}`);
 
-	// getting  a snapshot of data from the auth utility
+	// fetching the doc snapshot of the object from the auth utility
 	const snapShot = await userRef.get();
 
+	// check if the snapshot exists
 	if (!snapShot.exists) {
 		// data used to create the actual document
 		const { displayName, email } = userAuth;
@@ -44,7 +46,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 				displayName,
 				email,
 				createdAt,
-				...additionalData
+				...additionalData,
 			});
 		} catch (err) {
 			console.log("Error creating user", err.message);
@@ -52,6 +54,18 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 	}
 
 	return userRef;
+};
+
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+	const collectionRef = firestore.collection(collectionKey);
+
+	const batch = firestore.batch();
+	objectsToAdd.forEach((obj) => {
+		const newDocRef = collectionRef.doc();
+		batch.set(newDocRef, obj);
+	});
+
+	return await batch.commit();
 };
 
 // initializing the authentication function from firebase
