@@ -2,11 +2,10 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import "./App.css";
 
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+// import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 // pages
 import Homepage from "./pages/home/homepage.component";
@@ -21,6 +20,7 @@ class App extends React.Component {
 	unsubscribeFromAuth = null;
 
 	componentDidMount() {
+		/*
 		const { setCurrentUser } = this.props;
 
 		// get update on auth event change(login or signout)
@@ -43,6 +43,7 @@ class App extends React.Component {
 			}
 			setCurrentUser(userAuth);
 		});
+		*/
 	}
 
 	componentWillUnmount() {
@@ -70,11 +71,4 @@ const mapStateToProps = createStructuredSelector({
 	currentUser: selectCurrentUser,
 });
 
-// mapDispatch to props lets us update user reducer while invoking its function
-const mapDispatchToProps = (dispatch) => {
-	return {
-		setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

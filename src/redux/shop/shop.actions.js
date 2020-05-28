@@ -21,6 +21,12 @@ export const fetchCollectionsFailure = (errorMessage) => {
 	};
 };
 
+// Redux thunk
+/*
+  - Can be simply defined as a piece of redux middleware that allows actions to come as functions
+    and then invokes them before passing them to the reducer.
+*/
+
 export const fetchCollectionsStartAsync = () => {
 	return (dispatchEvent) => {
 		// get a collection reference of collections items from the firestore
@@ -38,6 +44,6 @@ export const fetchCollectionsStartAsync = () => {
 				// spin up the fetch success action state and passing the payload
 				dispatchEvent(fetchCollectionsSuccess(collectionsMap));
 			})
-			.catch((e) => dispatchEvent(e));
+			.catch((e) => dispatchEvent(fetchCollectionsFailure(e.message)));
 	};
 };

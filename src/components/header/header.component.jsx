@@ -30,7 +30,7 @@ const Header = ({ currentUser, hidden }) => {
 
 const mapstateToProps = createStructuredSelector({
 	currentUser: selectCurrentUser,
-	hidden: selectCartHidden
+	hidden: selectCartHidden,
 });
 
 // connects a component to properties defined in the root-reducer

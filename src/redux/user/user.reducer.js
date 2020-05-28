@@ -1,16 +1,26 @@
-import { UserActionTypes } from "./user.types";
+import UserActionTypes from "./user.types";
 
 const Initial_State = {
-	currentUser: null
+	currentUser: null,
+	error: null,
 };
 
 // if state is ever undefined the fallback = initial state
 const userReducer = (state = Initial_State, action) => {
 	switch (action.type) {
-		case UserActionTypes.SET_CURRENT_USER:
+		// when return data of the same type ther is no need for having multiple case formats
+		case UserActionTypes.EMAIL_SIGN_IN_SUCCESS:
+		case UserActionTypes.SIGN_IN_SUCCESS:
 			return {
 				...state,
-				currentUser: action.payload
+				currentUser: action.payload,
+				error: null,
+			};
+		case UserActionTypes.SIGN_IN_FAILURE:
+		case UserActionTypes.EMAIL_SIGN_IN_FAILURE:
+			return {
+				...state,
+				error: action.payload,
 			};
 		default:
 			return state;
