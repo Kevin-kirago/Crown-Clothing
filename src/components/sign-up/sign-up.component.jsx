@@ -14,11 +14,11 @@ export default class SignUp extends React.Component {
 			displayName: "",
 			email: "",
 			password: "",
-			confirmPassword: ""
+			confirmPassword: "",
 		};
 	}
 
-	handleSubmit = async e => {
+	handleSubmit = async (e) => {
 		e.preventDefault();
 
 		const { displayName, email, password, confirmPassword } = this.state;
@@ -38,7 +38,7 @@ export default class SignUp extends React.Component {
 				displayName: "",
 				email: "",
 				password: "",
-				confirmPassword: ""
+				confirmPassword: "",
 			});
 		} catch (e) {
 			console.log(e);
@@ -46,7 +46,7 @@ export default class SignUp extends React.Component {
 	};
 
 	// listens for value input or change from the form inputs
-	handleChange = e => {
+	handleChange = (e) => {
 		const { name, value } = e.target;
 
 		// set the state after the event change happens
@@ -65,7 +65,14 @@ export default class SignUp extends React.Component {
 					<FormInput type="text" name="displayName" value={displayName} onChange={this.handleChange} label="Display Name" required />
 					<FormInput type="email" name="email" value={email} onChange={this.handleChange} label="Email" required />
 					<FormInput type="password" name="password" value={password} onChange={this.handleChange} label="Password" required />
-					<FormInput type="password" name="confirmPassword" value={confirmPassword} onChange={this.handleChange} label="Confirm Password" required />
+					<FormInput
+						type="password"
+						name="confirmPassword"
+						value={confirmPassword}
+						onChange={this.handleChange}
+						label="Confirm Password"
+						required
+					/>
 					<CustomButton type="submit"> Sign Up</CustomButton>
 				</form>
 			</div>

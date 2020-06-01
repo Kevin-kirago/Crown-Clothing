@@ -3,9 +3,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+import { checkUserSession } from "./redux/user/user.actions";
 import "./App.css";
-
-// import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 // pages
 import Homepage from "./pages/home/homepage.component";
@@ -20,6 +19,9 @@ class App extends React.Component {
 	unsubscribeFromAuth = null;
 
 	componentDidMount() {
+		const { checkUserSession } = this.props;
+		checkUserSession();
+
 		/*
 		const { setCurrentUser } = this.props;
 
@@ -71,4 +73,8 @@ const mapStateToProps = createStructuredSelector({
 	currentUser: selectCurrentUser,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatchEvent) => ({
+	checkUserSession: () => dispatchEvent(checkUserSession()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
