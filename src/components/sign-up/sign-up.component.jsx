@@ -1,12 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
 import "./sign-up.styles.scss";
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
+import { userSignUpStart, signOutStart } from "../../redux/user/user.actions";
 
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+// import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
 	constructor() {
 		super();
 
@@ -28,21 +30,8 @@ export default class SignUp extends React.Component {
 			return;
 		}
 
-		try {
-			// create a new user associated with the email and password
-			const { user } = await auth.createUserWithEmailAndPassword(email, password);
-
-			await createUserProfileDocument(user, { displayName });
-
-			this.setState({
-				displayName: "",
-				email: "",
-				password: "",
-				confirmPassword: "",
-			});
-		} catch (e) {
-			console.log(e);
-		}
+		const { signUpStart } = this.props;
+		signOutStart({ displayName, email, password });
 	};
 
 	// listens for value input or change from the form inputs
@@ -79,3 +68,9 @@ export default class SignUp extends React.Component {
 		);
 	}
 }
+
+const mapDispatchToProps = (dispatchEvent) => ({
+	signUpStart: (userCredentials) => dispatchEvent(userSignUpStart(userCredentials)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);

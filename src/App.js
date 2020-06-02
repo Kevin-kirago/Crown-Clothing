@@ -16,42 +16,17 @@ import CheckOutPage from "./pages/checkout/checkout.component";
 import Header from "./components/header/header.component";
 
 class App extends React.Component {
-	unsubscribeFromAuth = null;
+	// unsubscribeFromAuth = null;
 
 	componentDidMount() {
 		const { checkUserSession } = this.props;
 		checkUserSession();
-
-		/*
-		const { setCurrentUser } = this.props;
-
-		// get update on auth event change(login or signout)
-		// listen to auth state change
-
-		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-			// if userAuth exists
-			if (userAuth) {
-				const userRef = await createUserProfileDocument(userAuth);
-
-				// listens to changes that happen on the documentSnapshot
-				userRef.onSnapshot((snapShot) => {
-					// set state is asynchronous so we callback any event after set state
-					setCurrentUser({
-						id: snapShot.id,
-						// .data retrieves data from the document as an object
-						...snapShot.data(),
-					});
-				});
-			}
-			setCurrentUser(userAuth);
-		});
-		*/
 	}
 
-	componentWillUnmount() {
-		// closes the auth subscription
-		this.unsubscribeFromAuth();
-	}
+	// componentWillUnmount() {
+	// 	// closes the auth subscription
+	// 	this.unsubscribeFromAuth();
+	// }
 
 	render() {
 		return (

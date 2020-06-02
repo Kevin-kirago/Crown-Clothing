@@ -2,29 +2,33 @@ import CartActionTypes from "./cart.types";
 
 export const toggleCartHidden = () => {
 	return {
-		type: CartActionTypes.TOGGLE_CART_HIDDEN
+		type: CartActionTypes.TOGGLE_CART_HIDDEN,
 	};
 };
 
-const addItem = item => {
+const addItem = (item) => {
 	return {
 		type: CartActionTypes.ADD_ITEM,
-		payload: item
+		payload: item,
 	};
 };
 
-export const removeItem = item => {
+export const removeItem = (item) => {
 	return {
 		type: CartActionTypes.REMOVE_ITEM,
-		payload: item
+		payload: item,
 	};
 };
 
-export const clearItem = item => {
+export const clearItem = (item) => {
 	return {
 		type: CartActionTypes.CLEAR_ITEM,
-		payload: item
+		payload: item,
 	};
 };
+
+export const clearCart = () => ({
+	type: CartActionTypes.CLEAR_CART,
+});
 
 export default addItem;

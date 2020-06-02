@@ -9,6 +9,7 @@ const Initial_State = {
 const userReducer = (state = Initial_State, action) => {
 	switch (action.type) {
 		// when return data of the same type ther is no need for having multiple case formats
+		case UserActionTypes.SIGN_UP_SUCCESS:
 		case UserActionTypes.SIGN_IN_SUCCESS:
 			return {
 				...state,
@@ -21,6 +22,7 @@ const userReducer = (state = Initial_State, action) => {
 				currentUser: null,
 				error: null,
 			};
+		case UserActionTypes.SIGN_UP_fAILURE:
 		case UserActionTypes.SIGN_IN_FAILURE:
 		case UserActionTypes.SIGN_OUT_FAILURE:
 			return {
