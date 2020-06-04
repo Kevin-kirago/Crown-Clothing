@@ -4,7 +4,24 @@ import UserActionTypes from "./user.types";
 import { auth, googleProvider, createUserProfileDocument, getCurrentUser } from "../../firebase/firebase.utils";
 
 // put is essentially the saga way of dispatching actions
+// user session
+export function* isUserAuthenticated() {
+	try {
+		const userAuth = yield getCurrentUser();
+		if (!userAuth) return;
+		yield getSnapshotFromUserAuth(userAuth);
+	} catch (e) {
+		yield put(signInFailure(e));
+	}
+}
 
+export function* onCheckUserSession() {
+	yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated);
+}
+
+/* utility func
+ * receive arguments from the action type fired (user data and additional data props)
+ */
 export function* getSnapshotFromUserAuth(userAuth) {
 	try {
 		const userRef = yield call(createUserProfileDocument, userAuth);
@@ -25,7 +42,6 @@ export function* userSignUp({ payload: { email, password, displayName } }) {
 		yield put(signUpFailure(e));
 	}
 }
-
 export function* onSignUpStart() {
 	yield takeLatest(UserActionTypes.USER_SIGN_UP_START, userSignUp);
 }
@@ -66,21 +82,6 @@ export function* onEmailSignInStart() {
 	yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
 }
 
-// user session
-export function* isUserAuthenticated() {
-	try {
-		const userAuth = yield getCurrentUser();
-		if (!userAuth) return;
-		yield getSnapshotFromUserAuth(userAuth);
-	} catch (e) {
-		yield put(signInFailure(e));
-	}
-}
-
-export function* onCheckUserSession() {
-	yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated);
-}
-
 // sign out
 export function* signOut() {
 	try {
@@ -97,11 +98,11 @@ export function* onSignOutStart() {
 
 export function* userSaga() {
 	yield all([
+		call(onCheckUserSession),
 		call(onSignUpStart),
 		call(onSignUpSuccess),
 		call(onGoogleSignInStart),
 		call(onEmailSignInStart),
-		call(onCheckUserSession),
 		call(onSignOutStart),
 	]);
 }
